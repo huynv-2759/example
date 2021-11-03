@@ -36,15 +36,60 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
-  ],
+  // modules: [
+  //   // https://go.nuxtjs.dev/axios
+  //   '@nuxtjs/axios',
+  // ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  // // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  // axios: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+  modules: [
+    // Doc: https://github.com/nuxt-community/axios-module#usage
+    '@nuxtjs/axios',
+    // Doc: https://github.com/bootstrap-vue/bootstrap-vue
+    'bootstrap-vue/nuxt',
+    '@nuxtjs/auth'
+  ],
+
+ /*
+  ** Axios module configuration
+  */
+  axios: {
+    baseURL: 'http://127.0.0.1:8000/api/',
+    debug: process.env.DEBUG || false,
+    proxyHeaders: false,
+    credentials: false,
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'login-user',
+            method: 'post',
+            propertyName: 'access',
+          },
+          user: {
+            url: 'get-user-infomation',
+            method: 'get',
+            propertyName: 'users'
+          },
+          tokenRequired: true,
+          logout: false
+        }
+      },
+      watchLoggedIn: true,
+      redirect: {
+        login: '/login',
+        logout: '/',
+        callback: '/login',
+        home: '/'
+      }
+    }
+  },
 }

@@ -2,6 +2,7 @@
     <div>
       <h2>Quản lý công việc</h2>
       <b-button v-b-modal.modal-prevent-closing style="background: rgb(74 176 33)">Thêm mới công việc</b-button>
+      <b-button style="background: rgb(141 144 230)" @click="logout">Đăng xuất</b-button>
       <b-modal
         id="modal-prevent-closing"
         ref="modal"
@@ -127,8 +128,19 @@
 
 <script>
 import axios from 'axios'
+import {mapGetters} from 'vuex'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 export default {
+  async fetch () {
+      const { data } = await axios.get('http://127.0.0.1:8000/api/job/list-job', {
+             headers: {'Authorization': this.$auth.getToken('local')}
+      })
+      console.log(data.data)
+      this.listJobs = data.data
+    },
+  computed: {
+      ...mapGetters(['loggedInUser'])
+  },
   data() {
       return {
         job: {
@@ -141,20 +153,24 @@ export default {
           descriptionState: null,
           dateState: null
         },
-        submittedNames: [],
         listJobs: []
       }
     },
-    created() {
-      axios.get(`http://127.0.0.1:8000/api/job/list-job`)
-      .then(response => {
-        this.listJobs = response.data.data
-      })
-      .catch(e => {
-        this.errors.push(e)
-      })
-    },
+    // created() {
+    //   axios.get(`http://127.0.0.1:8000/api/job/list-job`)
+    //   .then(response => {
+    //     this.listJobs = response.data.data
+    //   })
+    //   .catch(e => {
+    //     this.errors.push(e)
+    //   })
+    // },
     methods: {
+      async logout() {
+        await this.$auth.logout();
+        // this.$store.dispatch('changeAuthenticated');
+        this.$router.push('/login');
+      },
       checkFormValidity() {
         const valid = this.$refs.form.checkValidity()
         this.job.titleState = valid
@@ -181,8 +197,6 @@ export default {
         if (!this.checkFormValidity()) {
           return
         }
-        // Push the name to submitted names
-        this.submittedNames.push(this.job.title)
         try {
          this.error = null
          await axios.post('http://127.0.0.1:8000/api/job/create-job', {
@@ -190,8 +204,12 @@ export default {
            description: this.job.description,
            date: this.job.date,
            result: this.job.result
-         })
-         axios.get(`http://127.0.0.1:8000/api/job/list-job`)
+         }, {
+             headers: {'Authorization': this.$auth.getToken('local')}
+        })
+         axios.get(`http://127.0.0.1:8000/api/job/list-job`, {
+             headers: {'Authorization': this.$auth.getToken('local')}
+        })
         .then(response2 => {
           this.listJobs = response2.data.data
         })

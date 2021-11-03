@@ -1,5 +1,5 @@
 <template>
-    <v-simple-table fixed-header height="600px">
+  <v-simple-table fixed-header height="600px">
     <template v-slot:default>
       <thead>
         <tr>
@@ -19,6 +19,7 @@
           <td>
             <b-button @click.stop="setModal(job2)" v-b-modal.modal-prevent-update style="background: #fac25c">Sửa</b-button>
             <b-button @click="deleteJob(job2.id)" style="background: red">Xóa</b-button>
+            <nuxt-link :to="{name: 'todo-id', params: { id:job2.id} }">Chi tiết</nuxt-link>
           </td>
         </tr>
       </tbody>
@@ -142,18 +143,20 @@ export default {
         }
         // Push the name to submitted names
         try {
-          console.log("da vao")
          this.error = null
          const response = await axios.put('http://127.0.0.1:8000/api/job/update-job/' + this.job3.id, {
            title: this.job3.title,
            description: this.job3.description,
            date: this.job3.date,
            result: this.job3.result
-         })
+         }, {
+             headers: {'Authorization': this.$auth.getToken('local')}
+        })
          console.log(response.data)
         } catch (error) {
             this.error = error
         }
+        location.reload()
         // Hide the modal manually
         this.$nextTick(() => {
           this.$bvModal.hide('modal-prevent-update')
@@ -176,8 +179,11 @@ export default {
             if(value === true){
               try {
                 this.error = null
-                const response = axios.delete('http://127.0.0.1:8000/api/job/delete-job/' + this.job_id)
+                const response = axios.delete('http://127.0.0.1:8000/api/job/delete-job/' + this.job_id, {
+                      headers: {'Authorization': this.$auth.getToken('local')}
+                })
                 console.log(response.data)
+                location.reload()
                 } catch (error) {
                     this.error = error
                 }
