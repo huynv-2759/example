@@ -131,12 +131,13 @@ import axios from 'axios'
 import {mapGetters} from 'vuex'
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 export default {
+  // middleware: ['auth'],
   async fetch () {
-      const { data } = await axios.get('http://127.0.0.1:8000/api/job/list-job', {
-             headers: {'Authorization': this.$auth.getToken('local')}
-      })
-      console.log(data.data)
-      this.listJobs = data.data
+      const  data  = await axios.get('http://127.0.0.1:8000/api/job/list-job', {
+             headers: {'Authorization': this.getCookie('token_authen')}
+        })
+      console.log(data)
+      this.listJobs = data.data.data
     },
   computed: {
       ...mapGetters(['loggedInUser'])
@@ -155,7 +156,7 @@ export default {
         },
         listJobs: []
       }
-    },
+  },
     // created() {
     //   axios.get(`http://127.0.0.1:8000/api/job/list-job`)
     //   .then(response => {
@@ -166,9 +167,20 @@ export default {
     //   })
     // },
     methods: {
+      getCookie(name) {
+          const nameEQ = name + "=";
+          const ca = document.cookie.split(';');
+          for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+          }
+          return null;
+      },
       async logout() {
         await this.$auth.logout();
         // this.$store.dispatch('changeAuthenticated');
+        this.$axios.setToken(false);
         this.$router.push('/login');
       },
       checkFormValidity() {
