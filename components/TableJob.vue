@@ -164,7 +164,7 @@ export default {
       },
       deleteJob(id) {
         this.job_id = id
-        this.$bvModal.msgBoxConfirm('Bạn có chắc chắn muốn xóa công việc này.', {
+        this.$bvModal.msgBoxConfirm('Bạn có chắc chắn muốn xóa, mọi thứ về công việc này sẽ bị xóa.', {
           title: 'Vui lòng xác nhận',
           size: 'sm',
           buttonSize: 'sm',
