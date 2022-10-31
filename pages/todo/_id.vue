@@ -28,7 +28,6 @@
 </template>
 <script>
 import axios from 'axios'
-// Import Bootstrap an BootstrapVue CSS files (order is important)
 export default {
   async asyncData ({ params }) {
       const { data } = await axios.get('http://127.0.0.1:8000/api/job/job-detail/' + params.id)

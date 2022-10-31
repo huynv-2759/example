@@ -129,9 +129,7 @@
 <script>
 import axios from 'axios'
 import {mapGetters} from 'vuex'
-// Import Bootstrap an BootstrapVue CSS files (order is important)
 export default {
-  // middleware: ['auth'],
   async fetch () {
       const  data  = await axios.get('http://127.0.0.1:8000/api/job/list-job', {
              headers: {'Authorization': this.getCookie('token_authen')}
@@ -157,15 +155,6 @@ export default {
         listJobs: []
       }
   },
-    // created() {
-    //   axios.get(`http://127.0.0.1:8000/api/job/list-job`)
-    //   .then(response => {
-    //     this.listJobs = response.data.data
-    //   })
-    //   .catch(e => {
-    //     this.errors.push(e)
-    //   })
-    // },
     methods: {
       getCookie(name) {
           const nameEQ = name + "=";
@@ -179,7 +168,6 @@ export default {
       },
       async logout() {
         await this.$auth.logout();
-        // this.$store.dispatch('changeAuthenticated');
         this.$axios.setToken(false);
         this.$router.push('/login');
       },
@@ -199,13 +187,10 @@ export default {
         this.job.nameState = null
       },
       handleOk(bvModalEvt) {
-        // Prevent modal from closing
         bvModalEvt.preventDefault()
-        // Trigger submit handler
         this.handleSubmit()
       },
       async handleSubmit() {
-        // Exit when the form isn't valid
         if (!this.checkFormValidity()) {
           return
         }
@@ -231,7 +216,6 @@ export default {
        } catch (error) {
            this.error = error.response.data
        }
-        // Hide the modal manually
         this.$nextTick(() => {
           this.$bvModal.hide('modal-prevent-closing')
         })
