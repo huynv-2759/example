@@ -63,30 +63,18 @@
       },
       async login() {
         try {
-          console.log("đã vào login")
           const response = await this.$axios.post('login-user', {
             phone: this.phone,
             password: this.password
           })
-          console.log(response.data)
+
           if(response.data.status === 0){
             this.error = response.data.message
           }else{
-            console.log("đã vào đây");
             await this.$auth.setToken('local', "Bearer" + response.data.data.token);
             this.$store.dispatch('changeAuthenticated');
-            // this.$axios.onRequest((config) => {
-            //   config.headers = {
-            //     'Authorization': this.$auth.getToken('local'), // refers to nuxt.config.js->auth.token
-            //   }
-            // });
             this.$axios.defaults.headers.common.Authorization = "Bearer " + response.data.data.token;
-            // const expires = "";
-            // const date = new Date();
-            // date.setTime(date.getTime() + (7*24*60*60*1000));
-            // this.expires = "; expires=" + date.toUTCString();
             document.cookie = name + "=" + "Bearer " + response.data.data.token;
-            // console.log(this.getCookie('token_authen'));
             this.$router.push('/todo');
           }
 

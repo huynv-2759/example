@@ -131,17 +131,13 @@ export default {
         this.job3.result = job2.result
       },
       handleOk(bvModalEvt) {
-        // Prevent modal from closing
         bvModalEvt.preventDefault()
-        // Trigger submit handler
         this.handleSubmit()
       },
       async handleSubmit() {
-        // Exit when the form isn't valid
         if (!this.checkFormValidity()) {
           return
         }
-        // Push the name to submitted names
         try {
          this.error = null
          const response = await axios.put('http://127.0.0.1:8000/api/job/update-job/' + this.job3.id, {
@@ -157,7 +153,6 @@ export default {
             this.error = error
         }
         location.reload()
-        // Hide the modal manually
         this.$nextTick(() => {
           this.$bvModal.hide('modal-prevent-update')
         })
