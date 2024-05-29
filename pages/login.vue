@@ -11,16 +11,16 @@
                 <p class="text-muted">Đăng nhập với tài khoản</p>
                 <b-input-group class="mb-3">
                   <input type="text" class=" form-control" v-model="phone"
-                         placeholder="Số điện thoại">
+                         placeholder="Phone number">
                 </b-input-group>
 
                 <b-input-group class="mb-4">
-                  <input type="password" class="form-control" v-model="password" placeholder="Mật khẩu">
+                  <input type="password" class="form-control" v-model="password" placeholder="Password">
                 </b-input-group>
 
                 <b-row>
                   <b-col cols="6">
-                    <b-button variant="primary" class="px-4" @click="login">Đăng nhập</b-button>
+                    <b-button variant="primary" class="px-4" @click="login">Đăng nhập a</b-button>
                   </b-col>
                 </b-row>
               </b-card-body>
