@@ -20,7 +20,7 @@
 
                 <b-row>
                   <b-col cols="6">
-                    <b-button variant="primary" class="px-4" @click="login">Đăng nhập</b-button>
+                    <b-button variant="primary" class="px-4" @click="login">Đăng nhập a</b-button>
                   </b-col>
                 </b-row>
               </b-card-body>
