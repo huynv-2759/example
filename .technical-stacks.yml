@@ -8,8 +8,6 @@ config:
       - md
 techstack:
   application:
-    - laravel:9.52.15
-    - php:8.0.2
     - typescript
     - nuxt:3.5.1
     - nginx:1.21.6
