@@ -8,7 +8,6 @@ config:
       - md
 techstack:
   application:
-    - typescript
     - nuxt:3.5.1
     - sass:1.55.0
     - redis:7.0.4
