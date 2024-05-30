@@ -10,7 +10,6 @@ techstack:
   application:
     - typescript
     - nuxt:3.5.1
-    - nginx:1.21.6
     - sass:1.55.0
     - redis:7.0.4
     - beanstalkd
@@ -19,7 +18,6 @@ techstack:
     - postgresql
     - linode
   devops:
-    - kubernetes
     - fluxcd
     - docker
     - git
