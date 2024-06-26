@@ -8,7 +8,7 @@
               <b-card-body>
                 <h1>Đăng nhập</h1>
                 <Notification :message="error" v-if="error"/>
-                <p class="text-muted">Đăng nhập với tài khoản</p>
+                <p class="text-muted">Đăng nhập với tài khoản a</p>
                 <b-input-group class="mb-3">
                   <input type="text" class=" form-control" v-model="phone"
                          placeholder="Phone number">
