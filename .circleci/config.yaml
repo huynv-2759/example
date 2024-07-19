@@ -1,0 +1,37 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      # Specify the Docker image with the necessary build tools and dependencies
+      - image: circleci/openjdk:11
+
+    steps:
+      - checkout
+
+      - run:
+          name: Build and Test
+          command: |
+            # Build your application (e.g., compile code, run tests, etc.)
+            ./gradlew clean build
+
+      - run:
+          name: Deploy
+          command: |
+            # Deploy your application using Helm
+            # Make sure you have Helm installed and configured properly
+            helm upgrade --install myapp ./path/to/helm/chart --namespace mynamespace
+
+      - run:
+          name: Cleanup
+          command: |
+            # Clean up any resources or temporary files
+            rm -rf ./path/to/helm/chart
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: main
