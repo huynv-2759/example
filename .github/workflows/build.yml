@@ -39,7 +39,7 @@ jobs:
           make docker-build
           make docker-push
   public:
-    runs-on: arc-runners-sun3
+    runs-on: arc-runners-sun
     environment:
       name: ${{ inputs.environment }}
       url: ${{ inputs.app_url }}
@@ -67,3 +67,8 @@ jobs:
           node-version: '14'
       - run: npm install -g bats
       - run: bats -v
+
+  test:
+    runs-on: windows-latest
+    steps:
+    - run: echo Hello world!
