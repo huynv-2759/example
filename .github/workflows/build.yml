@@ -21,7 +21,7 @@ env:
 
 jobs:
   build:
-    runs-on: arc-runners-sun
+    runs-on: [arc-runners-sun, arc-runners-sun1]
     environment:
       name: ${{ inputs.environment }}
       url: ${{ inputs.app_url }}
@@ -38,3 +38,32 @@ jobs:
           make docker-pull
           make docker-build
           make docker-push
+  public:
+    runs-on: arc-runners-sun3
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ inputs.app_url }}
+    env:
+      TAG: ${{ inputs.tag }}
+      APP_URL: ${{ inputs.app_url }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Deploy to ${{ inputs.environment }}
+        run: |
+          export UNIQUE_TAG="run-$GITHUB_RUN_NUMBER${{ inputs.unique_tag_suffix }}"
+          echo "$HARBOR_PASSWORD" | docker login $HARBOR_REGISTRY -u "$HARBOR_USERNAME" --password-stdin
+          make docker-pull
+          make docker-build
+          make docker-push
+
+  check-bats-version:
+    runs-on: 
+      group: ubuntu-runners
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+      - run: npm install -g bats
+      - run: bats -v
