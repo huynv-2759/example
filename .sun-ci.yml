@@ -1,0 +1,10 @@
+default:
+  workspace: shared
+
+stages:
+- Test
+
+jobs:
+- name: PHPUnit
+  stage: Test
+  image: alpine
