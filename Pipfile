@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==3.2.5"
+flask = ">=2.0.1"
+fastapi = "*"
+tensorflow = "==2.5.0"
+torch = "*"
+scikit-learn = "==0.24.2"
+keras = ">=2.4.3"
+pyqt5 = "==5.15.4"
+kivy = "*"
+djangorestframework = "==3.12.4"
+flask-restful = "*"
+pygame = "==2.0.1"
+tornado = ">=6.1"
+sanic = "*"
+
+[dev-packages]
+pytest = ">=6.2.4"
+flake8 = "*"
+black = "==21.6b0"
+mypy = "*"
