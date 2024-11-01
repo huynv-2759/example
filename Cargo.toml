@@ -7,7 +7,7 @@ edition = "2018"
 [dependencies]
 serde = "1.0"
 serde_json = "1.0"
-reqwest = { version = "0.11", features = ["json"] }
+reqwest = { version = "0.11", path = "../path/to/my_local_crate" }
 tokio = { version = "1", features = ["full"] }
 log = "0.4"
 env_logger = "0.8"
