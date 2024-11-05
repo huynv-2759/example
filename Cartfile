@@ -3,3 +3,7 @@ github "SwiftyJSON/SwiftyJSON"
 github "realm/realm-cocoa" == 10.7.2
 github "Quick/Quick" ~> 3.1.2
 github "Quick/Nimble" ~> 9.0.0
+git "https://github.com/auth0/Auth0.swift.git" "master"
+git "git@github.com:box/box-ios-sdk.git" "master"
+git "git@github.com:box/box-ios-browse-sdk.git" "master"
+binary "https://github.com/box/box-ios-preview-sdk/releases/download/v1.1.1/previewSDK.json" == 1.1.1
