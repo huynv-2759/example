@@ -3,6 +3,16 @@ module github.com/framgia/apollo-sync-tool
 go 1.19
 
 require (
+	github.com/framgia/apollo-worker/gitsyncer/rpc v0.0.0
+	github.com/framgia/apollo-worker/repository/rpc v0.0.0
+	github.com/zeromicro/go-zero v1.5.4
+)
+
+replace github.com/framgia/apollo-worker/gitsyncer/rpc v0.0.0 => ../../gitsyncer/rpc
+
+replace github.com/framgia/apollo-worker/repository/rpc v0.0.0 => ../../repository/rpc
+
+require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/mergestat/mergestat-lite v0.6.1
