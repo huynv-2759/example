@@ -2,10 +2,6 @@ config:
   ignore:
     paths:
       - /api/public/index.php
-    commits:
-      - 130af3f2fa6ea746e4358bf9f973510417457813
-    file_extensions:
-      - md
 techstack:
   application:
     - laravel:9.52.15
