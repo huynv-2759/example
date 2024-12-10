@@ -1,11 +1,3 @@
-config:
-  ignore:
-    paths:
-      - /api/vendor
-    commits:
-      - ac7b8d465d65d33d7765824dd00b1764302205ba
-    file_extensions:
-      - lock
 techstack:
   application:
     - vue:3.4.1
