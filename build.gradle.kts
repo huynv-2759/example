@@ -1,73 +1,34 @@
+val kotlin_version: String by project
+val logback_version: String by project
+
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
+    kotlin("jvm") version "2.0.20"
+    id("io.ktor.plugin") version "3.0.1"
+    kotlin("plugin.serialization") version "2.0.20"
 }
 
-group = "org.jetbrains.kotlin.sample"
-version = "1.0-SNAPSHOT"
+application {
+    mainClass.set("io.ktor.server.netty.EngineMain")
+}
 
-kotlin {
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+repositories {
+    mavenCentral()
+}
 
-    cocoapods {
-        summary = "Kotlin sample project with CocoaPods dependencies"
-        homepage = "https://github.com/Kotlin/kotlin-with-cocoapods-sample"
-
-        ios.deploymentTarget = "13.5"
-
-//      Example of usage remote Cocoapods dependency from Cocoapods repository
-        pod("Base64") {
-            version = "~> 1.1.2"
-        }
-
-//      Example of usage remote Pod from Github repository by tag
-        pod("SDWebImage") {
-            source = git("https://github.com/SDWebImage/SDWebImage.git") {
-                tag = "5.9.2"
-            }
-        }
-
-//      Example of usage remote Pod from Github repository by branch
-        pod("JSONModel") {
-            source = git("https://github.com/jsonmodel/jsonmodel.git") {
-                branch = "key-mapper-class"
-            }
-        }
-
-//      Example of usage remote Pod from Github repository by commit
-        pod("CocoaLumberjack") {
-            source = git("https://github.com/CocoaLumberjack/CocoaLumberjack.git") {
-                commit = "3e7f595e3a459c39b917aacf9856cd2a48c4dbf3"
-            }
-        }
-
-//      Example of usage local Cocoapods dependency
-        pod("pod_dependency") {
-            version = "1.0"
-            source = path(project.file("../pod_dependency"))
-        }
-
-//      Example of usage local Pod declared as Subspec
-        pod("subspec_dependency/Core") {
-            version = "1.0"
-            source = path(project.file("../subspec_dependency"))
-        }
-
-//      Example of usage Pod from custom spec repository
-//      Please, make sure that your existing Podfile contains `source 'path/to/spec-repo.git'` line
-//        specRepos {
-//            url("https://github.com/Kotlin/kotlin-cocoapods-spec.git")
-//        }
-//        pod("example")
-    }
-
-    sourceSets {
-        all {
-            languageSettings {
-                optIn("kotlinx.cinterop.ExperimentalForeignApi")
-            }
-        }
-    }
+dependencies {
+    implementation("io.ktor:ktor-server-auth")
+    implementation("io.ktor:ktor-server-resources")
+    implementation("io.ktor:ktor-server-compression")
+    implementation("io.ktor:ktor-server-conditional-headers")
+    implementation("io.ktor:ktor-server-default-headers")
+    implementation("io.ktor:ktor-server-partial-content")
+    implementation("io.ktor:ktor-server-call-logging")
+    implementation("io.ktor:ktor-server-html-builder")
+    implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("org.ehcache:ehcache:3.9.7")
+    implementation("com.google.code.gson:gson:2.9.1")
+    implementation("io.ktor:ktor-server-netty-jvm")
+    testImplementation("io.mockk:mockk:1.13.4")
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation("io.ktor:ktor-server-test-host-jvm")
 }
